@@ -1,6 +1,7 @@
 # SQL-Project
 
 📊** COVID-19 Data Analysis and Nashvil Housing Data Cleaning with SQL**
+
 This project involves comprehensive data cleaning and exploration of datasets using SQL. It demonstrates strong proficiency in SQL through advanced querying, data transformation.
 
 
