@@ -190,3 +190,69 @@ From PortfolioProject.dbo.[NashvilleHousing ]
 ALTER TABLE PortfolioProject.dbo.[NashvilleHousing ]
 DROP COLUMN OwnerAddress, TaxDistrict, PropertyAddress, SaleDate
 
+
+
+-------------------------------------------------------------------------------------------------------------
+
+-- Count how many properties were sold by Property types
+SELECT LandUse, COUNT(*) AS TotalPropertiesSold
+FROM PortfolioProject.dbo.NashvilleHousing
+GROUP BY LandUse
+ORDER BY LandUse;
+
+
+--Property types fetch the highest average price.
+
+SELECT LandUse, AVG(SalePrice) AS AvgPrice
+FROM PortfolioProject.dbo.NashvilleHousing
+GROUP BY LandUse
+ORDER BY AvgPrice DESC;
+
+
+--Identify the cities with the highest number of property sales
+
+SELECT TOP 10 PropertySplitCity AS City,  COUNT(*) AS TotalSales
+FROM PortfolioProject.dbo.NashvilleHousing
+GROUP BY PropertySplitCity
+ORDER BY TotalSales DESC;
+
+--Show how many properties were sold each city and their average prices
+
+SELECT PropertySplitCity,COUNT(*) AS TotalSales,ROUND(AVG(SalePrice), 2) AS AvgSalePrice
+FROM PortfolioProject.dbo.NashvilleHousing
+GROUP BY PropertySplitCity
+ORDER BY PropertySplitCity;
+
+
+--Compare how many vacant and non-vacant properties were sold and their average prices
+
+SELECT  SoldAsVacant,COUNT(*) AS NumberOfProperties,ROUND(AVG(SalePrice), 2) AS AvgSalePrice
+FROM PortfolioProject.dbo.NashvilleHousing
+GROUP BY SoldAsVacant;
+
+
+--Find properties that were sold more than once (resales or flips)
+
+SELECT PropertySplitAddress, COUNT(*) AS TimesSold
+FROM PortfolioProject.dbo.NashvilleHousing
+GROUP BY PropertySplitAddress
+HAVING COUNT(*) > 1
+ORDER BY TimesSold DESC;
+
+
+-- Display sales over 10 million to spot luxury property sales
+SELECT *
+FROM PortfolioProject.dbo.NashvilleHousing
+WHERE SalePrice > 10000000
+ORDER BY SalePrice DESC;
+
+
+-- Find the top 10 owners based on the number of properties listed under their name
+
+SELECT TOP 10 OwnerName,COUNT(*) AS PropertiesOwned
+FROM PortfolioProject.dbo.NashvilleHousing
+GROUP BY OwnerName
+ORDER BY PropertiesOwned DESC;
+
+
+
