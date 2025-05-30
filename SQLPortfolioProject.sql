@@ -9,10 +9,27 @@ select *
 from PortfolioProject..CovidDeaths
 order by 3,4
 
+
+select *
+from PortfolioProject..CovidVaccinations
+
+
 select *
 from PortfolioProject..CovidDeaths
 where continent is not null
 order by 3,4
+
+
+
+-- Replace empty strings with NULLs
+UPDATE PortfolioProject..CovidDeaths
+SET continent = NULL
+WHERE continent = '';
+
+UPDATE PortfolioProject..CovidVaccinations
+SET continent = NULL
+WHERE continent = '';
+
 
 
 --Check for Empty Strings
@@ -24,6 +41,8 @@ WHERE continent = '';
 UPDATE PortfolioProject..CovidVaccinations
 SET continent  = NULL
 WHERE continent = '';
+
+
 
 
 SELECT DISTINCT new_vaccinations
@@ -49,6 +68,11 @@ ALTER COLUMN population float;
 
 ALTER TABLE PortfolioProject..CovidDeaths
 ALTER COLUMN continent varchar(50) null;
+
+SELECT *
+FROM PortfolioProject..CovidVaccinations
+WHERE ISNUMERIC(new_vaccinations) = 0;
+
 
 
 -- Select Data that is needed
